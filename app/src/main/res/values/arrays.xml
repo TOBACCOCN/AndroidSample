@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="books">
+        <item>疯狂 Android 讲义</item>
+        <item>疯狂 Java 讲义</item>
+        <item>疯狂 Python 讲义</item>
+    </string-array>
+    <string-array name="vibrate_names">
+        <item>关闭</item>
+        <item>较弱</item>
+        <item>适中</item>
+        <item>较强</item>
+    </string-array>
+    <string-array name="vibrate_values">
+        <item>off</item>
+        <item>weak</item>
+        <item>middle</item>
+        <item>strong</item>
+    </string-array>
+</resources>

@@ -1,2 +1,4 @@
+include ':lib'
+include ':aidlserver'
 include ':app'
 rootProject.name = "AndroidSample"

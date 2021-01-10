@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+<!--    TODO android:icon 、app:showAsActon and app:actionViewClass has no effect-->
+    <item android:title="字体大小" android:icon="@android:drawable/btn_star_big_on" app:showAsAction="always|withText" app:actionViewClass="android.widget.SearchView">
+        <menu>
+            <group android:checkableBehavior="none">
+                <item
+                    android:id="@+id/size10"
+                    android:title="10 号字体" />
+                <item
+                    android:id="@+id/size11"
+                    android:title="11 号字体" />
+                <item
+                    android:id="@+id/size12"
+                    android:title="12 号字体" />
+                <item
+                    android:id="@+id/size13"
+                    android:title="13 号字体" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="普通菜单项" app:showAsAction="ifRoom"/>
+
+    <item android:title="字体颜色" android:icon="@android:drawable/btn_star_big_on" app:showAsAction="always">
+        <menu>
+            <group android:checkableBehavior="none">
+                <item
+                    android:id="@+id/color15"
+                    android:title="红色" />
+                <item
+                    android:id="@+id/color16"
+                    android:title="绿色" />
+                <item
+                    android:id="@+id/color17"
+                    android:title="蓝色" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

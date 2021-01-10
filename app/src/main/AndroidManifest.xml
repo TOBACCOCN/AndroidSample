@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sample">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- Required to provide the web interface -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Required to run keep-alive service when targeting API 28 or higher -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <application
         android:name=".DefaultApplication"
         android:allowBackup="true"
@@ -16,18 +11,145 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".media.CameraV2Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SQLiteOpenHelperActivity" />
-        <activity android:name=".GreenDAOActivity" />
-        <activity android:name=".WCDBActivity" />
-        <activity android:name=".RealmActivity" />
-        <activity android:name=".ObjectBoxActivity" />
+        <activity android:name=".media.AudioTrackActivity"></activity>
+        <activity android:name=".media.PhoneLoopBackActivity"></activity>
+        <activity android:name=".media.AudioRecordActivity"></activity>
+        <activity
+            android:name=".activity.BookDetailActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".activity.SimpleFragmentActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".activity.ForResultActivity" />
+        <activity android:name=".activity.SimplePreferenceActivity" />
+        <activity android:name=".activity.SimpleExpandableListActivity" />
+        <activity android:name=".activity.SimpleLauncherActivity" />
+        <activity android:name=".event.AsyncTaskActivity" />
+        <activity android:name=".event.PlaneEventActivity" />
+        <activity android:name=".media.MediaRecorderActivity" />
+        <activity android:name=".view.ActionBarTabActivity" />
+        <activity android:name=".media.CameraActivity" />
+        <activity
+            android:name=".media.SurfaceViewActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".media.VideoViewActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".media.SoundPoolActivity" />
+        <activity android:name=".media.MediaPlayerActivity"></activity>
+        <activity android:name=".view.ActionBarActivity" />
+        <activity android:name=".view.PopupMenuActivity" />
+        <activity android:name=".view.ContextMenuActivity" />
+        <activity android:name=".view.OptionsMenuActivity" />
+        <activity android:name=".view.ProgressDialogActivity" />
+        <activity android:name=".view.PopupActivity" />
+        <activity android:name=".view.NotificationActivity" />
+        <activity android:name=".view.ScrollViewActivity" />
+        <activity android:name=".view.SearchViewActivity" />
+        <activity android:name=".view.NumberPickerActivity" />
+        <activity android:name=".view.DateTimePickerActivity" />
+        <activity android:name=".view.CalendarViewActivity" />
+        <activity android:name=".view.ToastActivity" />
+        <activity android:name=".view.ViewFlipperActivity" />
+        <activity android:name=".view.TextSwitcherActivity" />
+        <activity android:name=".view.ImageSwitcherActivity" />
+        <activity android:name=".view.ViewSwitcherActivity" />
+        <activity android:name=".view.RatingBarActivity" />
+        <activity android:name=".view.SeekBarActivity" />
+        <activity android:name=".view.ProgressBarActivity" />
+        <activity android:name=".view.StackViewActivity" />
+        <activity android:name=".view.AdapterViewFlipperActivity" />
+        <activity android:name=".view.SpinnerActivity" />
+        <activity android:name=".view.ExpandableListViewActivity" />
+        <activity android:name=".view.GridViewActivity" />
+        <activity android:name=".view.ListViewActivity" />
+        <activity android:name=".view.ImageViewActivity" />
+        <activity android:name=".view.ClockActivity" />
+        <activity android:name=".view.ButtonActivity" />
+        <activity android:name=".view.EditTextActivity" />
+        <activity android:name=".view.TextViewActivity" />
+        <activity android:name=".layout.ConstraintLayoutActivity" />
+        <activity android:name=".layout.GridLayoutActivity" />
+        <activity android:name=".layout.RelativeLayoutActivity" />
+        <activity android:name=".layout.FrameLayoutActivity" />
+        <activity android:name=".layout.TableLayoutActivity" />
+        <activity android:name=".layout.LinearLayoutActivity" />
+        <activity android:name=".touchball.BallActivity" />
+        <activity android:name=".view.FragmentTabActivity" />
+        <activity android:name=".view.AlertDialogActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.ALERT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <data
+                    android:host="www.example.com"
+                    android:mimeType="abc/xyz"
+                    android:path="/path"
+                    android:port="80"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".database.SQLiteOpenHelperActivity" />
+        <activity android:name=".database.GreenDAOActivity" />
+        <activity android:name=".database.WCDBActivity" />
+        <activity android:name=".database.RealmActivity" />
+        <activity android:name=".database.ObjectBoxActivity" />
+
+        <provider
+            android:name=".provider.UserContentProvider"
+            android:authorities="com.example.sample" />
+
+        <receiver
+            android:name=".receiver.SimpleBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SIMPLE_RECEIVER" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".service.SimpleIntentService" />
+        <service android:name=".service.SimpleService">
+            <intent-filter>
+                <action android:name="android.intent.action.SIMPLE_SERVICE" />
+            </intent-filter>
+        </service>
+        <service android:name=".service.SimpleBindService">
+            <intent-filter>
+                <action android:name="android.intent.action.SIMPLE_BIND_SERVICE" />
+            </intent-filter>
+        </service>
     </application>
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-feature android:name="android.hardware.autofocus" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
 </manifest>

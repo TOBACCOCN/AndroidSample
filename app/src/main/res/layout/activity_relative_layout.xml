@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".layout.RelativeLayoutActivity">
+
+    <TextView
+        android:id="@+id/view1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/circle"
+        android:text="中间的 view">
+    </TextView>
+
+    <TextView
+        android:id="@+id/view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/view1"
+        android:layout_alignLeft="@id/view1"
+        android:background="@drawable/circle"
+        android:text="上边的 view">
+    </TextView>
+
+    <TextView
+        android:id="@+id/view3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view1"
+        android:layout_alignLeft="@id/view1"
+        android:background="@drawable/circle"
+        android:text="下边的 view">
+    </TextView>
+
+    <TextView
+        android:id="@+id/view4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/view1"
+        android:layout_alignTop="@id/view1"
+        android:background="@drawable/circle"
+        android:text="左边的 view">
+    </TextView>
+
+    <TextView
+        android:id="@+id/view5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/view1"
+        android:layout_alignTop="@id/view1"
+        android:background="@drawable/circle"
+        android:text="右边的 view">
+    </TextView>
+
+</RelativeLayout>

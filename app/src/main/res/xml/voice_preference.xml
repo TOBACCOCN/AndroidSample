@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <RingtonePreference
+        android:key="ringtong"
+        android:ringtoneType="ringtone"
+        android:showDefault="true"
+        android:showSilent="true"
+        android:title="选择铃声" />
+    <PreferenceCategory android:title="分类">
+        <EditTextPreference
+            android:key="user_name"
+            android:title="填写用户名"
+            android:summary="请填写您的用户名" />
+        <ListPreference
+            android:key="vibrate"
+            android:title="点按时振动"
+            android:entries="@array/vibrate_names"
+            android:entryValues="@array/vibrate_values"/>
+    </PreferenceCategory>
+    <Preference
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:summary="SUMMARY"
+        android:title="JUST_SHOW_PREF" />
+    <SwitchPreference
+        android:checked="true"
+        android:icon="@android:drawable/star_big_on"
+        android:title="静音时振动" />
+    <CheckBoxPreference
+        android:key="auto_save"
+        android:title="自动保存"
+        android:summaryOff="关闭"
+        android:summaryOn="开启"
+        android:checked="true"/>
+</PreferenceScreen>

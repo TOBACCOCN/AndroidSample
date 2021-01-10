@@ -15,6 +15,11 @@ import com.elvishew.xlog.printer.file.clean.FileLastModifiedCleanStrategy;
 import com.elvishew.xlog.printer.file.naming.DateFileNameGenerator;
 import com.example.sample.dao.DaoMaster;
 import com.example.sample.dao.DaoSession;
+import com.example.sample.database.MyObjectBox;
+import com.example.sample.database.SimpleSQLiteOpenHelper;
+import com.example.sample.database.WCDBSQLiteOpenHelper;
+import com.example.sample.util.ErrorPrintUtil;
+import com.example.sample.util.MD5Util;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -140,7 +145,7 @@ public class DefaultApplication extends Application {
         //开启浏览器访问ObjectBox
         if (BuildConfig.DEBUG) {
             boolean started = new AndroidObjectBrowser(boxStore).start(this);
-            XLog.d(">>>>> OBJECT_BROWSER_STARTED: [%s]", started);
+            XLog.d("OBJECT_BROWSER_STARTED: [%s]", started);
         }
     }
 

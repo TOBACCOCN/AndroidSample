@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.TextViewActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="hello android"
+        android:textSize="20sp"
+        android:textColor="@color/color1"
+        android:layout_marginTop="10dp"
+        android:drawableEnd="@drawable/ic_launcher"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="hello java, who are you, where are you from, are you ok, talk is cheep, show me your code"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="hello java, who are you, where are you from, are you ok, talk is cheep, show me your code"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="true"
+        android:ellipsize="middle"
+        android:singleLine="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="my email is none@none.com, and phone is 13888888888,  hostsite is https://www.zyh.com"
+        android:textSize="20sp"
+        android:shadowColor="@color/color3"
+        android:shadowDx="10.0"
+        android:shadowDy="8.0"
+        android:shadowRadius="3.0"
+        android:layout_marginTop="10dp"
+        android:autoLink="all"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:text="234238gidg.,'!@#$"
+        android:inputType="textPassword"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+    <CheckedTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="10dp"
+        android:text="234238gidg.,'!@#$"
+        android:checkMark="@drawable/circle"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+</LinearLayout>

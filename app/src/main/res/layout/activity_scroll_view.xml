@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ScrollViewActivity">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="青海长云暗雪山，孤城遥望玉门关。黄沙百战穿金甲，不破楼兰终不还。" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="秦时明月汉时关，万里长征人未还。但使龙城飞将在，不教胡马度阴山。" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="好雨知时节，当春乃发生。随风潜入夜，润物细无声。野径云俱黑，江船火独明。晓看红湿处，花重锦官城。" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="两个黄鹂鸣翠柳，一行白鹭上青天。窗含西岭千秋雪，门泊东吴万里船。" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="昔闻洞庭水，今上岳阳楼。 吴楚东南坼，乾坤日夜浮。 亲朋无一字，老病有孤舟。 戎马关山北，凭轩涕泗流。" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="天门中断楚江开，碧水东流至此回。 　　两岸青山相对出，孤帆一片日边来。" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="谁家玉笛暗飞声，散入春风满洛城。 　　此夜曲中闻折柳，何人不起故园情。" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="横看成岭侧成峰，远近高低各不同。不识庐山真面目，只缘身在此山中。" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="800dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/libai" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="800dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/dufu" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+</ScrollView>
