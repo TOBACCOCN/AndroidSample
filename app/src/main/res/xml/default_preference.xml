@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+    <header
+        android:fragment="com.example.sample.activity.SimplePreferenceActivity$DisplayPreferenceFragment"
+        android:title="display"
+        android:icon="@android:drawable/btn_dialog"
+        android:summary="display_summary" />
+
+    <header
+        android:fragment="com.example.sample.activity.SimplePreferenceActivity$VoicePreferenceFragment"
+        android:title="voice"
+        android:icon="@android:drawable/btn_star_big_on"
+        android:summary="voice_summary" >
+        <extra
+            android:name="foo"
+            android:value="bar" />
+    </header>
+
+    <header
+        android:title="wlan"
+        android:icon="@android:drawable/ic_input_add"
+        android:summary="wlan_summary">
+        <intent android:action="android.intent.action.ALERT" />
+    </header>
+
+</preference-headers>
