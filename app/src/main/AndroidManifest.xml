@@ -11,28 +11,34 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.DefaultPreferenceActivity">
+        <activity android:name=".resources.ResourcesXmlActivity">
+
+        </activity>
+        <activity android:name=".resources.ResourcesDrawableActivity">
+        </activity>
+        <activity android:name=".resources.ResourcesValuesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".media.CameraV2Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".media.AudioTrackActivity"></activity>
-        <activity android:name=".media.PhoneLoopBackActivity"></activity>
-        <activity android:name=".media.AudioRecordActivity"></activity>
+        <activity android:name=".system_service.BatteryManagerActivity" />
+        <activity android:name=".activity.DefaultPreferenceActivity" />
+        <activity android:name=".system_service.TelephonyManagerActivity" />
+        <activity android:name=".system_service.AlarmActivity" />
+        <activity android:name=".system_service.AlarmManagerActivity" />
+        <activity android:name=".system_service.VibratorActivity" />
+        <activity android:name=".media.CameraV2Activity" />
+        <activity android:name=".media.AudioTrackActivity" />
+        <activity android:name=".media.PhoneLoopBackActivity" />
+        <activity android:name=".media.AudioRecordActivity" />
         <activity
             android:name=".activity.BookDetailActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SimpleFragmentActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity android:name=".activity.ForResultActivity" />
         <activity android:name=".activity.SimplePreferenceActivity" />
         <activity android:name=".activity.SimpleExpandableListActivity" />
@@ -49,7 +55,7 @@
             android:name=".media.VideoViewActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".media.SoundPoolActivity" />
-        <activity android:name=".media.MediaPlayerActivity"></activity>
+        <activity android:name=".media.MediaPlayerActivity" />
         <activity android:name=".view.ActionBarActivity" />
         <activity android:name=".view.PopupMenuActivity" />
         <activity android:name=".view.ContextMenuActivity" />
@@ -87,7 +93,7 @@
         <activity android:name=".layout.FrameLayoutActivity" />
         <activity android:name=".layout.TableLayoutActivity" />
         <activity android:name=".layout.LinearLayoutActivity" />
-        <activity android:name=".touchball.BallActivity" />
+        <activity android:name=".view.self_define.TouchBallViewActivity" />
         <activity android:name=".view.FragmentTabActivity" />
         <activity android:name=".view.AlertDialogActivity">
             <intent-filter>
@@ -140,14 +146,13 @@
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-feature android:name="android.hardware.autofocus" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <uses-permission
         android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -156,7 +161,8 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
 
 </manifest>

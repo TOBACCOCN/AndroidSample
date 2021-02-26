@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="string">string-example</string>
+    <integer name="integer">1000</integer>
+    <bool name="bool_false">false</bool>
+    <color name="color_red">#FF0000</color>
+    <dimen name="dimen_20">20dp</dimen>
+    <string-array name="string_array">
+        <item>java</item>
+        <item>android</item>
+    </string-array>
+    <integer-array name="integer_array">
+        <item>100</item>
+        <item>200</item>
+    </integer-array>
+    <array name="array">
+        <item>#FF0000</item>
+        <item>#00FF00</item>
+        <item>#0000FF</item>
+    </array>
+</resources>

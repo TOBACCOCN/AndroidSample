@@ -1,5 +1,6 @@
 package com.example.sample;
 
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -63,6 +64,16 @@ public class MainActivity extends AppCompatActivity {
         startService();
 
         showIntent();
+
+        activityManagerTest();
+    }
+
+    private void activityManagerTest() {
+        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+        activityManager.getMemoryInfo(memoryInfo);
+        XLog.d("AVAIL_MEM: [%s], LOW_MEMORY: [%s], THRESHOLD: [%s], TOTAL_MEM: [%s]",
+                memoryInfo.availMem, memoryInfo.lowMemory, memoryInfo.threshold, memoryInfo.totalMem);
     }
 
     private void showIntent() {
