@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sample">
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
     <application
         android:name=".DefaultApplication"
         android:allowBackup="true"
@@ -11,13 +14,20 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".drawable.MeshBitmapActivity">
+        <activity android:name=".sensor.LocationManagerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".sensor.LevelerActivity">
+        </activity>
+        <activity android:name=".sensor.CompassActivity">
+        </activity>
+        <activity android:name=".sensor.SensorActivity">
+        </activity>
+        <activity android:name=".system_service.ActivityManagerActivity" />
+        <activity android:name=".drawable.MeshBitmapActivity" />
         <activity android:name=".drawable.AnimationDrawableBlastActivity" />
         <activity android:name=".drawable.AnimationDrawableActivity" />
         <activity android:name=".drawable.SimpleViewActivity" />
@@ -147,9 +157,15 @@
             </intent-filter>
         </service>
     </application>
-    <uses-feature android:name="android.hardware.camera" />
 
+    <permission
+        android:name="android.permission.SIMPLE"
+        android:protectionLevel="normal" />
+
+    <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.autofocus" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission
@@ -168,9 +184,5 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
-
-    <permission
-        android:name="android.permission.SIMPLE"
-        android:protectionLevel="normal" />
 
 </manifest>

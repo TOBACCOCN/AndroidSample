@@ -93,7 +93,7 @@ public class AnimationDrawableBlastActivity extends AppCompatActivity {
             try {
                 Field mCurFrame = AnimationDrawable.class.getDeclaredField("mCurFrame");
                 mCurFrame.setAccessible(true);
-                int cur = mCurFrame.getInt((AnimationDrawable) mBackground);
+                int cur = mCurFrame.getInt(mBackground);
                 if (cur == ((AnimationDrawable) mBackground).getNumberOfFrames() - 1) {
                     setVisibility(View.INVISIBLE);
                 }
