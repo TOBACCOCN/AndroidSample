@@ -27,13 +27,15 @@ public class SQLiteOpenHelperActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sqlite_open_helper);
 
         Bundle extras = getIntent().getExtras();
-        XLog.i("EXTRA_NAME: [%s], EXTRA_AGE: [%s]", extras.getString("name"),extras.getString("age"));
+        if (extras != null) {
+            XLog.i("EXTRA_NAME: [%s], EXTRA_AGE: [%s]", extras.getString("name"), extras.getString("age"));
+        }
 
         database = DefaultApplication.getSimpleSQLiteOpenHelper().getWritableDatabase();
         database.beginTransaction();
         insert();
         update();
-        delete();
+        // delete();
         database.endTransaction();
         // drop();
         // deleteDB();

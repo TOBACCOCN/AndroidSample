@@ -4,7 +4,10 @@ import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.LocalSocket;
+import android.net.LocalSocketAddress;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
@@ -23,7 +26,14 @@ import com.example.sample.service.SimpleBindService;
 import com.example.sample.service.SimpleIntentService;
 import com.example.sample.service.SimpleService;
 import com.example.sample.util.ErrorPrintUtil;
+import com.tencent.mmkv.MMKV;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -31,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
@@ -41,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final Map<Integer, Class<? extends AppCompatActivity>> imageSrcId2ActivityMap = new HashMap<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +78,47 @@ public class MainActivity extends AppCompatActivity {
         showIntent();
 
         activityManagerTest();
+
+        // localSocketTest();
+
+        MMKVTest();
+    }
+
+    private void MMKVTest() {
+        String rootDir = MMKV.initialize(this);
+        XLog.d("ROOT_DIR: [%s]", rootDir);
+
+        MMKV mmkv = MMKV.defaultMMKV();
+        mmkv.encode("bool", true);
+        mmkv.encode("int", 100);
+        mmkv.encode("float", 3.14f);
+        mmkv.encode("long", Long.MAX_VALUE);
+        mmkv.encode("bytes", new byte[]{3, 1, 4});
+        XLog.d("BOOL: [%s], INT: [%d], FLOAT: [%f], LONG: [%d]", mmkv.decodeBool("bool"), mmkv.decodeInt("int"),
+                mmkv.decodeFloat("float"), mmkv.decodeLong("long"));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void localSocketTest() {
+        new Thread(() -> {
+            LocalSocket localSocket = new LocalSocket();
+            try {
+                localSocket.connect(new LocalSocketAddress("SIMPLE_SERVER_SOCKET"));
+                OutputStream outputStream = localSocket.getOutputStream();
+                String time = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss").format(LocalDateTime.now());
+                outputStream.write(("Hello, I'm LocalSocket Client" +time ).getBytes());
+                InputStream inputStream = localSocket.getInputStream();
+                ByteArrayOutputStream baos =new ByteArrayOutputStream();
+                byte[] buf =new byte[8192];
+                int len;
+                while ((len = inputStream.read(buf)) != -1) {
+                    baos.write(buf, 0, len);
+                }
+                android.util.Log.d("TAG", new String(baos.toByteArray(), StandardCharsets.UTF_8));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     private void activityManagerTest() {

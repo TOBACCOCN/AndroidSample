@@ -61,9 +61,13 @@ dependencies {
     implementation 'net.zetetic:android-database-sqlcipher:4.4.0'
     // WCDB
     implementation 'com.tencent.wcdb:wcdb-android:1.0.8'
+    // MQTT
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
+    // MMKV
+    implementation 'com.tencent:mmkv-static:1.2.10'
     implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.navigation:navigation-fragment:2.3.1'
-    implementation 'androidx.navigation:navigation-ui:2.3.1'
+    implementation 'androidx.navigation:navigation-fragment:2.3.2'
+    implementation 'androidx.navigation:navigation-ui:2.3.2'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'androidx.wear:wear:1.1.0'

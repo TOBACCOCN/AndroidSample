@@ -24,7 +24,7 @@ public class ObjectBoxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_object_box);
 
-        box = DefaultApplication.getBoxStore().boxFor(ObjectBoxUserInf.class);
+        box = DefaultApplication.getsBoxStore().boxFor(ObjectBoxUserInf.class);
         insert();
         update();
         queryWhere();

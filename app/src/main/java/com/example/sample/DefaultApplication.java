@@ -2,6 +2,7 @@ package com.example.sample;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.util.Log;
 
 import com.elvishew.xlog.LogConfiguration;
 import com.elvishew.xlog.LogLevel;
@@ -18,10 +19,17 @@ import com.example.sample.dao.DaoSession;
 import com.example.sample.database.MyObjectBox;
 import com.example.sample.database.SimpleSQLiteOpenHelper;
 import com.example.sample.database.WCDBSQLiteOpenHelper;
+import com.example.sample.mqtt.DefaultMqttCallBack;
 import com.example.sample.util.ErrorPrintUtil;
 import com.example.sample.util.MD5Util;
 
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
 import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 
 import io.objectbox.BoxStore;
 import io.objectbox.android.AndroidObjectBrowser;
@@ -36,10 +44,11 @@ public class DefaultApplication extends Application {
 
     private static SimpleSQLiteOpenHelper simpleSQLiteOpenHelper;
     @SuppressLint("StaticFieldLeak")
-    private static DaoMaster.DevOpenHelper devOpenHelper;
-    private static DaoSession daoSession;
-    private static WCDBSQLiteOpenHelper wcdbSQLiteOpenHelper;
-    private static BoxStore boxStore;
+    private static DaoMaster.DevOpenHelper sDevOpenHelper;
+    private static DaoSession sDaoSession;
+    private static WCDBSQLiteOpenHelper sWcdbSQLiteOpenHelper;
+    private static BoxStore sBoxStore;
+    private static MqttClient sMqttClient;
 
     @Override
     public void onCreate() {
@@ -50,6 +59,7 @@ public class DefaultApplication extends Application {
         initWCDB();
         initRealm();
         initObjectBox();
+        initMQTT();
     }
 
     private void initXLog() {
@@ -94,7 +104,9 @@ public class DefaultApplication extends Application {
     }
 
     private void initSimpleSQLiteOpenHelper() {
-        simpleSQLiteOpenHelper = new SimpleSQLiteOpenHelper(this, "SQLiteOpenHelper.db", null, 1);
+        if (getResources().getBoolean(R.bool.sqlite_enable)) {
+            simpleSQLiteOpenHelper = new SimpleSQLiteOpenHelper(this, "SQLiteOpenHelper.db", null, 1);
+        }
     }
 
     public static SimpleSQLiteOpenHelper getSimpleSQLiteOpenHelper() {
@@ -102,29 +114,37 @@ public class DefaultApplication extends Application {
     }
 
     private void initGreenDAO() {
-        devOpenHelper = new DaoMaster.DevOpenHelper(this, "GreenDAO.db");
+        if (!getResources().getBoolean(R.bool.green_dao_enable)) {
+            return;
+        }
+        sDevOpenHelper = new DaoMaster.DevOpenHelper(this, "GreenDAO.db");
         // DaoMaster daoMaster = new DaoMaster(devOpenHelper.getWritableDatabase());
-        DaoMaster daoMaster = new DaoMaster(devOpenHelper.getEncryptedWritableDb("sample"));
-        daoSession = daoMaster.newSession();
+        DaoMaster daoMaster = new DaoMaster(sDevOpenHelper.getEncryptedWritableDb("sample"));
+        sDaoSession = daoMaster.newSession();
     }
 
-    public static DaoMaster.DevOpenHelper getDevOpenHelper() {
-        return devOpenHelper;
+    public static DaoMaster.DevOpenHelper getsDevOpenHelper() {
+        return sDevOpenHelper;
     }
 
-    public static DaoSession getDaoSession() {
-        return daoSession;
+    public static DaoSession getsDaoSession() {
+        return sDaoSession;
     }
 
     private void initWCDB() {
-        wcdbSQLiteOpenHelper = new WCDBSQLiteOpenHelper(this, "sample".getBytes());
+        if (getResources().getBoolean(R.bool.wcdb_enable)) {
+            sWcdbSQLiteOpenHelper = new WCDBSQLiteOpenHelper(this, "sample".getBytes());
+        }
     }
 
     public static WCDBSQLiteOpenHelper getWCDBSQLiteOpenHelper() {
-        return wcdbSQLiteOpenHelper;
+        return sWcdbSQLiteOpenHelper;
     }
 
     private void initRealm() {
+        if (!getResources().getBoolean(R.bool.realm_enable)) {
+            return;
+        }
         Realm.init(this);
         String md5Encrypted;
         try {
@@ -140,17 +160,58 @@ public class DefaultApplication extends Application {
     }
 
     private void initObjectBox() {
+        if (!getResources().getBoolean(R.bool.object_box_enable)) {
+            return;
+        }
         //第一次没运行之前，MyObjectBox默认会有报错提示，可以忽略。创建实体类， make之后报错就会不提示
-        boxStore = MyObjectBox.builder().androidContext(this).build();
+        sBoxStore = MyObjectBox.builder().androidContext(this).build();
         //开启浏览器访问ObjectBox
         if (BuildConfig.DEBUG) {
-            boolean started = new AndroidObjectBrowser(boxStore).start(this);
+            boolean started = new AndroidObjectBrowser(sBoxStore).start(this);
             XLog.d("OBJECT_BROWSER_STARTED: [%s]", started);
         }
     }
 
-    public static BoxStore getBoxStore() {
-        return boxStore;
+    public static BoxStore getsBoxStore() {
+        return sBoxStore;
+    }
+
+    private void initMQTT() {
+        if (!getResources().getBoolean(R.bool.mqtt_enable)) {
+            return;
+        }
+        String clientId = UUID.randomUUID().toString().replaceAll("-", "");
+        String serverURI = getString(R.string.mqtt_server_uri);
+        try {
+            sMqttClient = new MqttClient(serverURI, clientId, new MemoryPersistence());
+
+            // MQTT 连接选项
+            MqttConnectOptions connOpts = new MqttConnectOptions();
+            connOpts.setUserName(getString(R.string.mqtt_username));
+            connOpts.setPassword(getString(R.string.mqtt_password).toCharArray());
+            // 保留会话
+            connOpts.setCleanSession(true);
+
+            // 设置回调
+            sMqttClient.setCallback(new DefaultMqttCallBack());
+
+            // 建立连接
+            Log.i("TAG", ">>>>> MQTT CONNECTING TO SERVER_URI:  " + serverURI);
+            try {
+                sMqttClient.connect(connOpts);
+            } catch (MqttException e) {
+                ErrorPrintUtil.printErrorMsg(e);
+            }
+
+            // 订阅
+            sMqttClient.subscribe(getString(R.string.mqtt_topic_filter));
+        } catch (MqttException e) {
+            ErrorPrintUtil.printErrorMsg(e);
+        }
+    }
+
+    public static MqttClient getMqttClient() {
+        return sMqttClient;
     }
 
 }

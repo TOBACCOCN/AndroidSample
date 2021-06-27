@@ -21,4 +21,8 @@
     <string name="transition">Transition</string>
     <string name="rotate">Rotate</string>
     <string name="transition_rotate_alpha">Transition Rotate Alpha</string>
+    <string name="mqtt_server_uri">tcp://192.168.1.106:1883</string>
+    <string name="mqtt_username">admin</string>
+    <string name="mqtt_password">public</string>
+    <string name="mqtt_topic_filter">default_topic/#</string>
 </resources>

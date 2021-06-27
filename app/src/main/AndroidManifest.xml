@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sample">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
     <application
         android:name=".DefaultApplication"
         android:allowBackup="true"
@@ -14,23 +11,21 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".sensor.LocationManagerActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".gesture.GestureMultiZoomActivity">
         </activity>
-        <activity android:name=".sensor.LevelerActivity">
+        <activity android:name=".gesture.GestureZoomActivity">
         </activity>
-        <activity android:name=".sensor.CompassActivity">
-        </activity>
-        <activity android:name=".sensor.SensorActivity">
-        </activity>
+        <activity android:name=".gesture.GestureActivity"></activity>
+        <activity android:name=".sensor.LocationManagerActivity" />
+        <activity android:name=".sensor.LevelerActivity" />
+        <activity android:name=".sensor.CompassActivity" />
+        <activity android:name=".sensor.SensorActivity" />
         <activity android:name=".system_service.ActivityManagerActivity" />
         <activity android:name=".drawable.MeshBitmapActivity" />
         <activity android:name=".drawable.AnimationDrawableBlastActivity" />
         <activity android:name=".drawable.AnimationDrawableActivity" />
-        <activity android:name=".drawable.SimpleViewActivity" />
+        <activity android:name=".drawable.SimpleViewActivity" >
+        </activity>
         <activity android:name=".drawable.PropertyAnimationActivity" />
         <activity android:name=".drawable.DrawViewActivity" />
         <activity android:name=".drawable.ImageDecoderActivity" />
@@ -118,6 +113,10 @@
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
                 <data
                     android:host="www.example.com"
                     android:mimeType="abc/xyz"
@@ -161,10 +160,11 @@
     <permission
         android:name="android.permission.SIMPLE"
         android:protectionLevel="normal" />
-
     <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.autofocus" />
 
+    <uses-feature android:name="android.hardware.autofocus" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />

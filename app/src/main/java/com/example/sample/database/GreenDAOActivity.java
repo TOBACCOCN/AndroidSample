@@ -28,7 +28,7 @@ public class GreenDAOActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_green_dao);
 
-        userInfDao = DefaultApplication.getDaoSession().getUserInfDao();
+        userInfDao = DefaultApplication.getsDaoSession().getUserInfDao();
         insert();
         update();
         queryWhere();
@@ -73,7 +73,7 @@ public class GreenDAOActivity extends AppCompatActivity {
     }
 
     private void drop() {
-        DefaultApplication.getDevOpenHelper().getWritableDatabase().execSQL("drop table user_inf");
+        DefaultApplication.getsDevOpenHelper().getWritableDatabase().execSQL("drop table user_inf");
     }
 
     private void deleteDB() {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="mqtt_enable">false</bool>
+    <bool name="sqlite_enable">true</bool>
+    <bool name="realm_enable">true</bool>
+    <bool name="object_box_enable">true</bool>
+    <bool name="green_dao_enable">true</bool>
+    <bool name="wcdb_enable">true</bool>
+</resources>
