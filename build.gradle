@@ -1,14 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext.objectboxVersion = '2.6.0'
-    repositories {
-        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
-        google()
-        jcenter()
-    }
+//    repositories {
+//        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+//        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+//        google()
+////        jcenter()
+//    }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath 'com.android.tools.build:gradle:7.1.1'
         classpath "org.greenrobot:greendao-gradle-plugin:3.3.0"
         classpath "io.realm:realm-gradle-plugin:7.0.1"
         classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
@@ -18,14 +18,14 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories {
-        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
-        google()
-        jcenter()
-    }
-}
+//allprojects {
+//    repositories {
+//        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+//        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+//        google()
+////        jcenter()
+//    }
+//}
 
 task clean(type: Delete) {
     delete rootProject.buildDir

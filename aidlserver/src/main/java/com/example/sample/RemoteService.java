@@ -5,17 +5,18 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.os.Parcel;
 import android.os.RemoteException;
-
-import com.elvishew.xlog.XLog;
+import android.util.Log;
 
 public class RemoteService extends Service {
+
+    private static final String TAG = "RemoteService";
 
     SimpleData mSimpleData;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        XLog.i("ON_CREATE");
+        Log.i(TAG, "ON_CREATE");
         initSimpleData();
     }
 
@@ -30,19 +31,19 @@ public class RemoteService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        XLog.i("ON_BIND");
+        Log.i(TAG, "ON_BIND");
         return mBinder;
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
-        XLog.i("ON_UNBIND");
+        Log.i(TAG, "ON_UNBIND");
         return super.onUnbind(intent);
     }
 
     @Override
     public void onDestroy() {
-        XLog.i("ON_DESTROY");
+        Log.i(TAG, "ON_DESTROY");
         super.onDestroy();
     }
 

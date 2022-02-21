@@ -47,6 +47,14 @@ public class AsyncTaskActivity extends AppCompatActivity {
         }
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setProgress(0);
+            progressBar.setMax(3);
+        }
+
+        @Override
         protected String doInBackground(URL... urls) {
             try {
                 URLConnection connection = urls[0].openConnection();
@@ -69,11 +77,9 @@ public class AsyncTaskActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-            progressBar.setProgress(0);
-            progressBar.setMax(3);
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            progressBar.setProgress(values[0]);
         }
 
         @Override
@@ -81,12 +87,6 @@ public class AsyncTaskActivity extends AppCompatActivity {
             super.onPostExecute(s);
             progressBar.setVisibility(View.GONE);
             textView.setText(s);
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            progressBar.setProgress(values[0]);
         }
     }
 }

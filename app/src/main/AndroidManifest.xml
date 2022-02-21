@@ -3,6 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sample">
 
+    <permission
+        android:name="android.permission.SIMPLE"
+        android:protectionLevel="normal" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.autofocus" />
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+
     <application
         android:name=".DefaultApplication"
         android:allowBackup="true"
@@ -11,11 +42,19 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".gesture.GestureMultiZoomActivity">
+        <activity
+            android:name=".connection.BluetoothServerActivity"
+            android:exported="true">
+
         </activity>
-        <activity android:name=".gesture.GestureZoomActivity">
+        <activity
+            android:name=".connection.BluetoothActivity"
+            android:exported="true">
+
         </activity>
-        <activity android:name=".gesture.GestureActivity"></activity>
+        <activity android:name=".gesture.GestureMultiZoomActivity" />
+        <activity android:name=".gesture.GestureZoomActivity" />
+        <activity android:name=".gesture.GestureActivity" />
         <activity android:name=".sensor.LocationManagerActivity" />
         <activity android:name=".sensor.LevelerActivity" />
         <activity android:name=".sensor.CompassActivity" />
@@ -24,8 +63,7 @@
         <activity android:name=".drawable.MeshBitmapActivity" />
         <activity android:name=".drawable.AnimationDrawableBlastActivity" />
         <activity android:name=".drawable.AnimationDrawableActivity" />
-        <activity android:name=".drawable.SimpleViewActivity" >
-        </activity>
+        <activity android:name=".drawable.SimpleViewActivity" />
         <activity android:name=".drawable.PropertyAnimationActivity" />
         <activity android:name=".drawable.DrawViewActivity" />
         <activity android:name=".drawable.ImageDecoderActivity" />
@@ -104,16 +142,20 @@
         <activity android:name=".layout.LinearLayoutActivity" />
         <activity android:name=".view.self_define.TouchBallViewActivity" />
         <activity android:name=".view.FragmentTabActivity" />
-        <activity android:name=".view.AlertDialogActivity">
+        <activity android:name=".view.AlertDialogActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.ALERT" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -145,44 +187,16 @@
         </receiver>
 
         <service android:name=".service.SimpleIntentService" />
-        <service android:name=".service.SimpleService">
+        <service android:name=".service.SimpleService" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SIMPLE_SERVICE" />
             </intent-filter>
         </service>
-        <service android:name=".service.SimpleBindService">
+        <service android:name=".service.SimpleBindService" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SIMPLE_BIND_SERVICE" />
             </intent-filter>
         </service>
     </application>
-
-    <permission
-        android:name="android.permission.SIMPLE"
-        android:protectionLevel="normal" />
-    <uses-feature android:name="android.hardware.camera" />
-
-    <uses-feature android:name="android.hardware.autofocus" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission
-        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-
-    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
 
 </manifest>

@@ -17,8 +17,10 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".RemoteService">
-            <!-- android:process=":remote"> -->
+        <service
+            android:name=".RemoteService"
+            android:process=":remote"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.REMOTE_SERVICE" />
             </intent-filter>

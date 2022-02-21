@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Configuration;
 import android.net.LocalSocket;
 import android.net.LocalSocketAddress;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -41,6 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -73,15 +76,20 @@ public class MainActivity extends AppCompatActivity {
         imageSrcId2ActivityMap.put(R.drawable.realm, RealmActivity.class);
         imageSrcId2ActivityMap.put(R.drawable.object_box, ObjectBoxActivity.class);
 
-        startService();
-
         showIntent();
+
+        // startService();
 
         activityManagerTest();
 
-        // localSocketTest();
+        localSocketTest();
 
         MMKVTest();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     private void MMKVTest() {
@@ -149,12 +157,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void startService() {
         Intent intent = new Intent(this, SimpleService.class);
-        // startService(intent);
-        // stopService(intent);
+        startService(intent);
+        stopService(intent);
 
         intent = new Intent(this, SimpleIntentService.class);
-        // startService(intent);
-        // stopService(intent);
+        startService(intent);
+        stopService(intent);
 
         ServiceConnection serviceConnection = new ServiceConnection() {
             @Override
@@ -167,31 +175,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+        // bindService：该方法的调用者（本例中是 MainActivity）销毁时会触发绑定的 Service 的 onUnbind 和 onDestroy 方法
         bindService(new Intent(this, SimpleBindService.class), serviceConnection, BIND_AUTO_CREATE);
-        // unbindService(serviceConnection);
-
-        serviceConnection = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                IRemoteService remoteService = IRemoteService.Stub.asInterface(service);
-                try {
-                    SimpleData simpleData = remoteService.getSimpleData();
-                    Toast.makeText(MainActivity.this, simpleData.toString() + "\nPID: " + remoteService.getPid(), Toast.LENGTH_LONG).show();
-                    XLog.i("REMOTE_PID: [%d], SIMPLE_DATA: [%s]", remoteService.getPid(), simpleData);
-                } catch (RemoteException e) {
-                    ErrorPrintUtil.printErrorMsg(e);
-                }
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-
-            }
-        };
-        intent = new Intent();
-        intent.setClassName("com.example.sample", "com.example.sample.RemoteService");
-        bindService(intent, serviceConnection, BIND_AUTO_CREATE);
-        // unbindService(serviceConnection);
     }
 
     private void initListView(List<Integer> images, List<String> names) {
@@ -218,10 +203,43 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("age", "13");
                         intent.setClass(MainActivity.this, clazz);
                         startActivity(intent);
+                        finish();
                     }
                 }
         );
     }
 
+    private IRemoteService mIRemoteService;
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            XLog.i("onServiceConnected");
+            mIRemoteService = IRemoteService.Stub.asInterface(service);
+        }
 
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+
+    public void bind(View view) {
+        Intent intent = new Intent("android.intent.action.REMOTE_SERVICE");
+        intent.setPackage("com.example.aidlserver");
+        bindService(intent, serviceConnection, BIND_AUTO_CREATE);
+    }
+
+    public void getData(View view) {
+        try {
+            if(mIRemoteService == null) {
+                XLog.e("NONE remoteService");
+                return;
+            }
+            SimpleData simpleData = mIRemoteService.getSimpleData();
+            // Toast.makeText(MainActivity.this, simpleData.toString() + "\nPID: " + mIRemoteService.getPid(), Toast.LENGTH_LONG).show();
+            XLog.i("REMOTE_PID: [%d], SIMPLE_DATA: [%s]", mIRemoteService.getPid(), simpleData);
+        } catch (RemoteException e) {
+            ErrorPrintUtil.printErrorMsg(e);
+        }
+    }
 }

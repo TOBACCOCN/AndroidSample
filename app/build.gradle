@@ -5,13 +5,12 @@ apply plugin: 'realm-android'
 apply plugin: 'io.objectbox'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 31
 
     defaultConfig {
         applicationId "com.example.sample"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -45,10 +44,18 @@ android {
         //设置 DaoMaster、DaoSession、Dao 目录
         targetGenDir 'src/main/java'
     }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/aidl']
+        }
+    }
+    buildToolsVersion '31.0.0 rc2'
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(":lib")
     implementation 'androidx.appcompat:appcompat:1.2.0'
     // preference 可以使用 PreferenceFragmentCompat
     implementation 'androidx.preference:preference:1.1.1'
