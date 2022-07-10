@@ -13,15 +13,16 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.elvishew.xlog.XLog;
 import com.example.sample.database.GreenDAOActivity;
-import com.example.sample.database.ObjectBoxActivity;
-import com.example.sample.database.RealmActivity;
 import com.example.sample.database.SQLiteOpenHelperActivity;
 import com.example.sample.database.WCDBActivity;
 import com.example.sample.service.SimpleBindService;
@@ -55,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
     private final Map<Integer, Class<? extends AppCompatActivity>> imageSrcId2ActivityMap = new HashMap<>();
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,20 +73,43 @@ public class MainActivity extends AppCompatActivity {
         imageSrcId2ActivityMap.put(R.drawable.sqlite, SQLiteOpenHelperActivity.class);
         imageSrcId2ActivityMap.put(R.drawable.green_dao, GreenDAOActivity.class);
         imageSrcId2ActivityMap.put(R.drawable.wcdb, WCDBActivity.class);
-        imageSrcId2ActivityMap.put(R.drawable.realm, RealmActivity.class);
-        imageSrcId2ActivityMap.put(R.drawable.object_box, ObjectBoxActivity.class);
+        // imageSrcId2ActivityMap.put(R.drawable.realm, RealmActivity.class);
+        // imageSrcId2ActivityMap.put(R.drawable.object_box, ObjectBoxActivity.class);
 
-        showIntent();
+        // showIntent();
+        //
+        startService();
+        //
+        // activityManagerTest();
+        //
+        // localSocketTest();
+        //
+        // MMKVTest();
+        //
+        // showHeight();
 
-        // startService();
-
-        activityManagerTest();
-
-        localSocketTest();
-
-        MMKVTest();
+        showVersion();
     }
 
+    private void showVersion() {
+        Toast.makeText(this, "api level: " + android.os.Build.VERSION.SDK_INT + ", release: " + Build.VERSION.RELEASE, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showHeight() {
+        // WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+        // Display defaultDisplay = windowManager.getDefaultDisplay();
+        // DisplayMetrics metrics = new DisplayMetrics();
+        // defaultDisplay.getMetrics(metrics);
+        // Toast.makeText(this, "screenHeight: " + metrics.heightPixels, Toast.LENGTH_SHORT).show();
+        //
+        // metrics = new DisplayMetrics();
+        // defaultDisplay.getRealMetrics(metrics);
+        // Toast.makeText(this, "realHeight: " + metrics.heightPixels, Toast.LENGTH_SHORT).show();
+    }
+
+    // 1、不设置Activity的android:configChanges，或设置Activity的android:configChanges="orientation"，
+    // 或设置Activity的android:configChanges="orientation|keyboardHidden"，切屏会重新调用各个生命周期，切横屏时会执行一次，切竖屏时会执行一次。
+    // 2、配置 android:configChanges="orientation|keyboardHidden|screenSize"，才不会销毁 activity，且只调用 onConfigurationChanged方法。
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -114,10 +137,10 @@ public class MainActivity extends AppCompatActivity {
                 localSocket.connect(new LocalSocketAddress("SIMPLE_SERVER_SOCKET"));
                 OutputStream outputStream = localSocket.getOutputStream();
                 String time = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss").format(LocalDateTime.now());
-                outputStream.write(("Hello, I'm LocalSocket Client" +time ).getBytes());
+                outputStream.write(("Hello, I'm LocalSocket Client" + time).getBytes());
                 InputStream inputStream = localSocket.getInputStream();
-                ByteArrayOutputStream baos =new ByteArrayOutputStream();
-                byte[] buf =new byte[8192];
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                byte[] buf = new byte[8192];
                 int len;
                 while ((len = inputStream.read(buf)) != -1) {
                     baos.write(buf, 0, len);
@@ -177,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
         };
         // bindService：该方法的调用者（本例中是 MainActivity）销毁时会触发绑定的 Service 的 onUnbind 和 onDestroy 方法
         bindService(new Intent(this, SimpleBindService.class), serviceConnection, BIND_AUTO_CREATE);
+        unbindService(serviceConnection);
     }
 
     private void initListView(List<Integer> images, List<String> names) {
@@ -223,15 +247,27 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    // @Override
+    // protected void onPause() {
+    //     super.onPause();
+    //     finish();
+    // }
+    //
+    // @Override
+    // protected void onDestroy() {
+    //     super.onDestroy();
+    //     XLog.i("ON_DESTROY");
+    // }
+
     public void bind(View view) {
-        Intent intent = new Intent("android.intent.action.REMOTE_SERVICE");
-        intent.setPackage("com.example.aidlserver");
-        bindService(intent, serviceConnection, BIND_AUTO_CREATE);
+        // Intent intent = new Intent("android.intent.action.REMOTE_SERVICE");
+        // intent.setPackage("com.example.aidlserver");
+        // bindService(intent, serviceConnection, BIND_AUTO_CREATE);
     }
 
     public void getData(View view) {
         try {
-            if(mIRemoteService == null) {
+            if (mIRemoteService == null) {
                 XLog.e("NONE remoteService");
                 return;
             }
@@ -241,5 +277,11 @@ public class MainActivity extends AppCompatActivity {
         } catch (RemoteException e) {
             ErrorPrintUtil.printErrorMsg(e);
         }
+    }
+
+    public void startOtherAppActivity(View view) {
+        // Intent intent = new Intent();
+        // intent.setAction("com.example.sample.intent.action.MainActivity");
+        // startActivity(intent);
     }
 }

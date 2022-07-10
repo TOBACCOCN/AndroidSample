@@ -40,9 +40,10 @@ public class SQLiteOpenHelperActivity extends AppCompatActivity {
         // drop();
         // deleteDB();
 
-        doContentResolver();
+        // doContentResolver();
     }
 
+    // @SuppressLint("Range")
     private void doContentResolver() {
         ContentResolver contentResolver = getContentResolver();
         Uri url = Uri.parse("content://com.example.sample/users");
@@ -63,7 +64,7 @@ public class SQLiteOpenHelperActivity extends AppCompatActivity {
             }
             cursor.close();
         }
-        contentResolver.delete(url, "user_name=?", new String[]{"zyh"});
+        // contentResolver.delete(url, "user_name=?", new String[]{"zyh"});
     }
 
     private void insert() {
@@ -84,6 +85,7 @@ public class SQLiteOpenHelperActivity extends AppCompatActivity {
         query();
     }
 
+    // @SuppressLint("Range")
     private void query() {
         Cursor cursor = database.query("user_inf", null, null, null, null, null, null);
         XLog.d("QUERY_RESULT_COUNT: [%s]", cursor.getCount());

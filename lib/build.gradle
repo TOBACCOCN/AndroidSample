@@ -1,13 +1,13 @@
-//plugins {
-//    id 'com.android.library'
-//}
 apply plugin: 'com.android.library'
+//apply plugin: 'java-test-fixtures'
+//apply plugin: 'maven-publish'
 
 android {
+    namespace 'com.android.zyh.library'
     compileSdkVersion 30
+    buildToolsVersion '30.0.3'
 
     defaultConfig {
-//        applicationId "com.example.sample"
         minSdkVersion 23
         targetSdkVersion 30
 
@@ -30,14 +30,4 @@ android {
             java.srcDirs = ['src/main/java', 'src/main/aidl']
         }
     }
-    buildToolsVersion '30.0.3'
-}
-
-dependencies {
-
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

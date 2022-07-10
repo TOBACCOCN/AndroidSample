@@ -26,7 +26,7 @@ public class TelephonyManagerActivity extends AppCompatActivity {
         XLog.d("SIM_STATE: [%s]", telephonyManager.getSimState());
         XLog.d("CALL_STATE: [%s]", telephonyManager.getCallState());
         XLog.d("PHONE_TYPE: [%s]", telephonyManager.getPhoneType());
-        XLog.d("PHONE_COUNT: [%s]", telephonyManager.getPhoneCount());
+        // XLog.d("PHONE_COUNT: [%s]", telephonyManager.getPhoneCount());
         XLog.d("CALL_STATE: [%s]", telephonyManager.getCallState());
         XLog.d("ANDROID_ID: [%s]",  Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
 

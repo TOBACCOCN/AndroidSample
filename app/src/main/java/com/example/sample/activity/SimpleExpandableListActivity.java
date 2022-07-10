@@ -1,6 +1,5 @@
 package com.example.sample.activity;
 
-import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
@@ -9,13 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.example.sample.R;
 
-public class SimpleExpandableListActivity extends ExpandableListActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class SimpleExpandableListActivity extends AppCompatActivity {
 
     private final String[] armTypes = new String[]{"神族兵种", "虫族兵种", "人族兵种"};
     private final String[][] arms = new String[][]{{"狂战士", "龙骑士", "黑暗圣堂", "电兵"}, {"小狗", "刺蛇", "飞龙", "自爆飞机"}, {"机枪兵", "护士MM", "幽灵"}};
@@ -133,16 +136,9 @@ public class SimpleExpandableListActivity extends ExpandableListActivity {
                 return true;
             }
         };
-        setListAdapter(adapter);
+        setContentView(R.layout.activity_simple_expandable_list);
 
-        getExpandableListView().setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
-            Intent intent = getIntent();
-            intent.putExtra("armType", armTypes[groupPosition]);
-            intent.putExtra("arm", arms[groupPosition][childPosition]);
-            SimpleExpandableListActivity.this.setResult(0x123, intent);
-            SimpleExpandableListActivity.this.finish();
-            return false;
-        });
-        // setContentView(R.layout.activity_simple_expandable_list);
+        ExpandableListView listView = findViewById(R.id.expanded);
+        listView.setAdapter(adapter);
     }
 }

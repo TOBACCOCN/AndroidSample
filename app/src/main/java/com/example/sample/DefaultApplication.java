@@ -1,6 +1,5 @@
 package com.example.sample;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.util.Log;
 
@@ -16,25 +15,17 @@ import com.elvishew.xlog.printer.file.clean.FileLastModifiedCleanStrategy;
 import com.elvishew.xlog.printer.file.naming.DateFileNameGenerator;
 import com.example.sample.dao.DaoMaster;
 import com.example.sample.dao.DaoSession;
-import com.example.sample.database.MyObjectBox;
 import com.example.sample.database.SimpleSQLiteOpenHelper;
 import com.example.sample.database.WCDBSQLiteOpenHelper;
 import com.example.sample.mqtt.DefaultMqttCallBack;
 import com.example.sample.util.ErrorPrintUtil;
-import com.example.sample.util.MD5Util;
 
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
-
-import io.objectbox.BoxStore;
-import io.objectbox.android.AndroidObjectBrowser;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
 /**
  * @author zhangyonghong
@@ -43,11 +34,11 @@ import io.realm.RealmConfiguration;
 public class DefaultApplication extends Application {
 
     private static SimpleSQLiteOpenHelper simpleSQLiteOpenHelper;
-    @SuppressLint("StaticFieldLeak")
+    // @SuppressLint("StaticFieldLeak")
     private static DaoMaster.DevOpenHelper sDevOpenHelper;
     private static DaoSession sDaoSession;
     private static WCDBSQLiteOpenHelper sWcdbSQLiteOpenHelper;
-    private static BoxStore sBoxStore;
+    // private static BoxStore sBoxStore;
     private static MqttClient sMqttClient;
 
     @Override
@@ -57,8 +48,8 @@ public class DefaultApplication extends Application {
         initSimpleSQLiteOpenHelper();
         initGreenDAO();
         initWCDB();
-        initRealm();
-        initObjectBox();
+        // initRealm();
+        // initObjectBox();
         initMQTT();
     }
 
@@ -70,9 +61,9 @@ public class DefaultApplication extends Application {
                 // 指定 TAG，默认为 "X-LOG"
                 .tag("SAMPLE_LOG")
                 // 允许打印线程信息，默认禁止
-                .t()
+                .enableThreadInfo()
                 // 允许打印深度为 2 的调用栈信息，默认禁止
-                .st(2)
+                .enableStackTrace(2)
                 // 允许打印日志边框，默认禁止
                 // .b()
                 // 添加黑名单 TAG 过滤器
@@ -141,40 +132,40 @@ public class DefaultApplication extends Application {
         return sWcdbSQLiteOpenHelper;
     }
 
-    private void initRealm() {
-        if (!getResources().getBoolean(R.bool.realm_enable)) {
-            return;
-        }
-        Realm.init(this);
-        String md5Encrypted;
-        try {
-            md5Encrypted = MD5Util.encrypt("sample".getBytes());
-        } catch (NoSuchAlgorithmException e) {
-            ErrorPrintUtil.printErrorMsg(e);
-            return;
-        }
-        // encryptionKey 必须得是 64 位
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
-                .encryptionKey((md5Encrypted + md5Encrypted).getBytes()).build();
-        Realm.setDefaultConfiguration(realmConfiguration);
-    }
+    // private void initRealm() {
+    //     if (!getResources().getBoolean(R.bool.realm_enable)) {
+    //         return;
+    //     }
+    //     Realm.init(this);
+    //     String md5Encrypted;
+    //     try {
+    //         md5Encrypted = MD5Util.encrypt("sample".getBytes());
+    //     } catch (NoSuchAlgorithmException e) {
+    //         ErrorPrintUtil.printErrorMsg(e);
+    //         return;
+    //     }
+    //     // encryptionKey 必须得是 64 位
+    //     RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+    //             .encryptionKey((md5Encrypted + md5Encrypted).getBytes()).build();
+    //     Realm.setDefaultConfiguration(realmConfiguration);
+    // }
 
-    private void initObjectBox() {
-        if (!getResources().getBoolean(R.bool.object_box_enable)) {
-            return;
-        }
-        //第一次没运行之前，MyObjectBox默认会有报错提示，可以忽略。创建实体类， make之后报错就会不提示
-        sBoxStore = MyObjectBox.builder().androidContext(this).build();
-        //开启浏览器访问ObjectBox
-        if (BuildConfig.DEBUG) {
-            boolean started = new AndroidObjectBrowser(sBoxStore).start(this);
-            XLog.d("OBJECT_BROWSER_STARTED: [%s]", started);
-        }
-    }
-
-    public static BoxStore getsBoxStore() {
-        return sBoxStore;
-    }
+    // private void initObjectBox() {
+    //     if (!getResources().getBoolean(R.bool.object_box_enable)) {
+    //         return;
+    //     }
+    //     // 第一次没运行之前，MyObjectBox默认会有报错提示，可以忽略。创建实体类， make之后报错就会不提示
+    //     sBoxStore = MyObjectBox.builder().androidContext(this).build();
+    //     // 开启浏览器访问 ObjectBox
+    //     if (BuildConfig.DEBUG) {
+    //         boolean started = new AndroidObjectBrowser(sBoxStore).start(this);
+    //         XLog.d("OBJECT_BROWSER_STARTED: [%s]", started);
+    //     }
+    // }
+    //
+    // public static BoxStore getsBoxStore() {
+    //     return sBoxStore;
+    // }
 
     private void initMQTT() {
         if (!getResources().getBoolean(R.bool.mqtt_enable)) {

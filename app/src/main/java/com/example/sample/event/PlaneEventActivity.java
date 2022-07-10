@@ -6,12 +6,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
 import android.view.WindowManager;
 
 import com.elvishew.xlog.XLog;
@@ -21,6 +25,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PlaneEventActivity extends AppCompatActivity{
@@ -30,15 +35,21 @@ public class PlaneEventActivity extends AppCompatActivity{
     private int speed = 10;
     private PlaneView planeView;
 
+    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            getWindow().getInsetsController().hide(WindowInsets.Type.statusBars());
+        }
+        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         // setContentView(R.layout.activity_plane_event);
         getSupportActionBar().hide();
 
-        Handler handler =new Handler() {
+        Handler handler =new Handler(Looper.myLooper()) {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 if (msg.what == 123) {
@@ -48,7 +59,10 @@ public class PlaneEventActivity extends AppCompatActivity{
         };
 
         DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            getDisplay().getRealMetrics(metrics);
+        }
+        // getWindowManager().getDefaultDisplay().getMetrics(metrics);
         width = metrics.widthPixels;
         height = metrics.heightPixels;
         planeView = new PlaneView(this, handler);

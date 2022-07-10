@@ -36,18 +36,18 @@ public class SimpleService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         XLog.d("ON_START_COMMAND");
-        try {
-            // TimeUnit.SECONDS.sleep(20);
-            // 会引起【程序停止响应】
-            long end = System.currentTimeMillis() + 20 * 1000;
-            while (System.currentTimeMillis() < end) {
-                synchronized (this) {
-                    wait(end - System.currentTimeMillis());
-                }
-            }
-        } catch (InterruptedException e) {
-            ErrorPrintUtil.printErrorMsg(e);
-        }
+        // try {
+        //     // TimeUnit.SECONDS.sleep(20);
+        //     // 会引起【程序停止响应】
+        //     long end = System.currentTimeMillis() + 20 * 1000;
+        //     while (System.currentTimeMillis() < end) {
+        //         synchronized (this) {
+        //             wait(end - System.currentTimeMillis());
+        //         }
+        //     }
+        // } catch (InterruptedException e) {
+        //     ErrorPrintUtil.printErrorMsg(e);
+        // }
         return super.onStartCommand(intent, flags, startId);
     }
 

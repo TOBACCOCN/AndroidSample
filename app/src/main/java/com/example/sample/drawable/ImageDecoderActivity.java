@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -33,7 +34,7 @@ public class ImageDecoderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image_decoder);
 
         ImageView imageView = findViewById(R.id.image);
-        mHandler = new Handler(){
+        mHandler = new Handler(Looper.myLooper()){
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.widget.ProgressBar;
 
@@ -26,8 +27,7 @@ public class ProgressBarActivity extends Activity {
         ProgressBar progressBar = findViewById(R.id.bar);
         ProgressBar progressBar2 = findViewById(R.id.bar2);
 
-        handler = new Handler() {
-            @SuppressLint("HandlerLeak")
+        handler = new Handler(Looper.myLooper()) {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 if (msg.what == 111) {

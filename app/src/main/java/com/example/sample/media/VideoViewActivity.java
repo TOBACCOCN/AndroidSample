@@ -1,7 +1,9 @@
 package com.example.sample.media;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.MediaController;
 import android.widget.VideoView;
@@ -15,7 +17,12 @@ public class VideoViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            getWindow().getInsetsController().hide(WindowInsets.Type.statusBars());
+        }
+        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_video_view);
 
         VideoView videoView = findViewById(R.id.video);

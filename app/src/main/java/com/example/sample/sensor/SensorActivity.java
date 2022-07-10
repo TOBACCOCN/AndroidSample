@@ -59,7 +59,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
     @Override
     protected void onResume() {
         super.onResume();
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_NORMAL);
+        // mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY), SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION), SensorManager.SENSOR_DELAY_NORMAL);
@@ -85,10 +85,10 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         float[] values = event.values;
         String text;
         switch (type) {
-            case Sensor.STRING_TYPE_ORIENTATION:
-                text = "绕 Z 轴方向旋转角度为：" + values[0] + "\n绕 X 轴方向旋转角度为：" + values[1] + "\n绕 Y 轴方向旋转角度为：" + values[2];
-                mOrientationTextView.setText(text);
-                break;
+            // case Sensor.STRING_TYPE_ORIENTATION:
+            //     text = "绕 Z 轴方向旋转角度为：" + values[0] + "\n绕 X 轴方向旋转角度为：" + values[1] + "\n绕 Y 轴方向旋转角度为：" + values[2];
+            //     mOrientationTextView.setText(text);
+            //     break;
             case Sensor.STRING_TYPE_ACCELEROMETER:
                 text = "X 轴方向加速度为：" + values[0] + "\nY 轴方向加速度为：" + values[1] + "\nZ 轴方向加速度为：" + values[2];
                 mAccelerometerTextView.setText(text);

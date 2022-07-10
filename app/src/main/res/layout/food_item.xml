@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="food"
+            type="com.example.sample.databinding.Food" />
+    </data>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:onClick="@{food::onItemClick}">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            image="@{food.image}"/>
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_toRightOf="@+id/iv"
+            android:layout_marginLeft="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@{food.desc}"/>
+
+        <TextView
+            android:id="@+id/keyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2dp"
+            android:textStyle="bold"
+            android:text="@{food.keywords}"/>
+
+    </RelativeLayout>
+</layout>

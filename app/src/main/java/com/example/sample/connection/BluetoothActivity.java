@@ -12,6 +12,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.widget.Toast;
 
@@ -49,7 +50,6 @@ public class BluetoothActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,7 +127,7 @@ public class BluetoothActivity extends AppCompatActivity {
             XLog.i("name: [%s], address: [%s]", name, address);
         }
 
-        new Handler() {
+        new Handler(Looper.myLooper()) {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 // 关闭蓝牙
@@ -138,8 +138,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     private void connectBluetoothDevice(BluetoothDevice bluetoothDevice, Context context) {
         try {
-            @SuppressLint("HandlerLeak")
-            Handler handler = new Handler() {
+            Handler handler = new Handler(Looper.myLooper()) {
                 @Override
                 public void handleMessage(@NonNull Message msg) {
                     Toast.makeText(context, msg.obj.toString(), Toast.LENGTH_LONG).show();

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -14,8 +15,10 @@ import android.widget.LinearLayout;
 
 import com.example.sample.R;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+@RequiresApi(Build.VERSION_CODES.R)
 public class DrawViewActivity extends AppCompatActivity {
 
     @Override
@@ -24,9 +27,11 @@ public class DrawViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_draw_view);
 
         LinearLayout linearLayout = findViewById(R.id.root);
-        Display defaultDisplay = getWindowManager().getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();
-        defaultDisplay.getMetrics(metrics);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            Display display = getDisplay();
+            display.getRealMetrics(metrics);
+        }
         linearLayout.addView(new DrawView(this, metrics.widthPixels, metrics.heightPixels));
     }
 

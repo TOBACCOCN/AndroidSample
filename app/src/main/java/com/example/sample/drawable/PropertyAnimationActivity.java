@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -12,8 +13,10 @@ import android.widget.TextView;
 
 import com.example.sample.R;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+@RequiresApi(Build.VERSION_CODES.R)
 public class PropertyAnimationActivity extends AppCompatActivity {
 
     private TextView mAlphaTextView;
@@ -42,9 +45,12 @@ public class PropertyAnimationActivity extends AppCompatActivity {
         animator.start();
 
         float translationX = mTransitionTextView.getTranslationX();
-        Display defaultDisplay = getWindowManager().getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();
-        defaultDisplay.getMetrics(metrics);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            getDisplay().getRealMetrics(metrics);
+        }
+        // Display defaultDisplay = getWindowManager().getDefaultDisplay();
+        // defaultDisplay.getMetrics(metrics);
         animator = ObjectAnimator.ofFloat(mTransitionTextView, "translationX", translationX,
                 (float) (metrics.widthPixels - mTransitionTextView.getWidth() - 178) / 2, translationX);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());     // default，先加速再减速

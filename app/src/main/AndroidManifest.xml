@@ -42,16 +42,27 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <profileable android:shell="true" />
+
+        <activity
+            android:name=".databinding.FoodActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".databinding.UserActivity"
+            android:exported="true">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
         <activity
             android:name=".connection.BluetoothServerActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".connection.BluetoothActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity android:name=".gesture.GestureMultiZoomActivity" />
         <activity android:name=".gesture.GestureZoomActivity" />
         <activity android:name=".gesture.GestureActivity" />
@@ -76,7 +87,7 @@
         <activity android:name=".system_service.AlarmActivity" />
         <activity android:name=".system_service.AlarmManagerActivity" />
         <activity android:name=".system_service.VibratorActivity" />
-        <activity android:name=".media.CameraV2Activity" />
+<!--        <activity android:name=".media.CameraV2Activity" />-->
         <activity android:name=".media.AudioTrackActivity" />
         <activity android:name=".media.PhoneLoopBackActivity" />
         <activity android:name=".media.AudioRecordActivity" />
@@ -87,14 +98,19 @@
             android:name=".activity.SimpleFragmentActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".activity.ForResultActivity" />
-        <activity android:name=".activity.SimplePreferenceActivity" />
+        <activity android:name=".activity.SimplePreferenceActivity" >
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
         <activity android:name=".activity.SimpleExpandableListActivity" />
         <activity android:name=".activity.SimpleLauncherActivity" />
-        <activity android:name=".event.AsyncTaskActivity" />
+<!--        <activity android:name=".event.AsyncTaskActivity" />-->
         <activity android:name=".event.PlaneEventActivity" />
-        <activity android:name=".media.MediaRecorderActivity" />
-        <activity android:name=".view.ActionBarTabActivity" />
-        <activity android:name=".media.CameraActivity" />
+<!--        <activity android:name=".media.MediaRecorderActivity" />-->
+<!--        <activity android:name=".view.ActionBarTabActivity" />-->
+<!--        <activity android:name=".media.CameraActivity" />-->
         <activity
             android:name=".media.SurfaceViewActivity"
             android:screenOrientation="landscape" />
@@ -107,7 +123,7 @@
         <activity android:name=".view.PopupMenuActivity" />
         <activity android:name=".view.ContextMenuActivity" />
         <activity android:name=".view.OptionsMenuActivity" />
-        <activity android:name=".view.ProgressDialogActivity" />
+<!--        <activity android:name=".view.ProgressDialogActivity" />-->
         <activity android:name=".view.PopupActivity" />
         <activity android:name=".view.NotificationActivity" />
         <activity android:name=".view.ScrollViewActivity" />
@@ -141,8 +157,10 @@
         <activity android:name=".layout.TableLayoutActivity" />
         <activity android:name=".layout.LinearLayoutActivity" />
         <activity android:name=".view.self_define.TouchBallViewActivity" />
-        <activity android:name=".view.FragmentTabActivity" />
-        <activity android:name=".view.AlertDialogActivity" android:exported="true">
+<!--        <activity android:name=".view.FragmentTabActivity" />-->
+        <activity
+            android:name=".view.AlertDialogActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.ALERT" />
 
@@ -151,11 +169,10 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:configChanges="orientation|keyboardHidden|screenSize">
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -167,12 +184,26 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".database.SQLiteOpenHelperActivity" />
-        <activity android:name=".database.GreenDAOActivity" />
-        <activity android:name=".database.WCDBActivity" />
-        <activity android:name=".database.RealmActivity" />
-        <activity android:name=".database.ObjectBoxActivity" />
+        <activity
+            android:name=".database.SQLiteOpenHelperActivity"
+            android:exported="true">
 
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".database.GreenDAOActivity"
+            android:exported="true">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".database.WCDBActivity" /> <!-- <activity android:name=".database.RealmActivity" /> -->
+        <!-- <activity android:name=".database.ObjectBoxActivity" /> -->
         <provider
             android:name=".provider.UserContentProvider"
             android:authorities="com.example.sample" />
@@ -187,12 +218,16 @@
         </receiver>
 
         <service android:name=".service.SimpleIntentService" />
-        <service android:name=".service.SimpleService" android:exported="true">
+        <service
+            android:name=".service.SimpleService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SIMPLE_SERVICE" />
             </intent-filter>
         </service>
-        <service android:name=".service.SimpleBindService" android:exported="true">
+        <service
+            android:name=".service.SimpleBindService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SIMPLE_BIND_SERVICE" />
             </intent-filter>

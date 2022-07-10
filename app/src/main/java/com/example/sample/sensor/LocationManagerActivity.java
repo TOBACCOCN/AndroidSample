@@ -65,10 +65,6 @@ public class LocationManagerActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-            }
-
-            @Override
             public void onProviderEnabled(String provider) {
                 if (ActivityCompat.checkSelfPermission(LocationManagerActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(LocationManagerActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

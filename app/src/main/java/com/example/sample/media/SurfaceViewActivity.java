@@ -1,11 +1,13 @@
 package com.example.sample.media;
 
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -27,7 +29,12 @@ public class SurfaceViewActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            getWindow().getInsetsController().hide(WindowInsets.Type.statusBars());
+        }
+        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_surface_view);
 
         playBtn = findViewById(R.id.play);
@@ -113,9 +120,11 @@ public class SurfaceViewActivity extends AppCompatActivity implements View.OnCli
                 });
 
                 // 设置视频高宽，宽度与窗口同宽，高度根据宽度缩放比例来缩放
-                WindowManager windowManager = getWindowManager();
                 DisplayMetrics metrics = new DisplayMetrics();
-                windowManager.getDefaultDisplay().getMetrics(metrics);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    getDisplay().getRealMetrics(metrics);
+                }
+                // windowManager.getDefaultDisplay().getMetrics(metrics);
                 surfaceView.setLayoutParams(new RelativeLayout.LayoutParams(metrics.widthPixels, mediaPlayer.getVideoHeight() * metrics.widthPixels / mediaPlayer.getVideoWidth()));
             } catch (Exception e) {
                 ErrorPrintUtil.printErrorMsg(e);

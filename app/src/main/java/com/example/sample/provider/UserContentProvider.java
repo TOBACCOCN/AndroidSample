@@ -33,7 +33,7 @@ public class UserContentProvider extends ContentProvider {
         uriMatcher.addURI("com.example.sample", "users", USERS);
     }
 
-
+    // 该方法优先于 Application 的 onCreate 方法启动
     @Override
     public boolean onCreate() {
         simpleSQLiteOpenHelper = new SimpleSQLiteOpenHelper(getContext(), "user.db", null, 1);

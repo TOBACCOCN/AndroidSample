@@ -41,7 +41,7 @@ public class ToastActivity extends AppCompatActivity {
 
             Toast toast =new Toast(ToastActivity.this);
             toast.setGravity(Gravity.BOTTOM, 0, 0);
-            toast.setView(linearLayout);
+            // toast.setView(linearLayout);
             toast.setDuration(Toast.LENGTH_LONG);
             toast.show();
         });

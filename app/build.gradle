@@ -1,32 +1,89 @@
 apply plugin: 'com.android.application'
 //apply plugin: 'com.android.library'
 apply plugin: 'org.greenrobot.greendao'
-apply plugin: 'realm-android'
-apply plugin: 'io.objectbox'
+//apply plugin: 'realm-android'
+//apply plugin: 'io.objectbox'
 
 android {
-    compileSdkVersion 31
+    signingConfigs {
+        release {
+            keyAlias 'sample'
+            keyPassword System.getenv("KSTOREPWD")
+            storePassword System.getenv("KEYPWD")
+            storeFile file('D:\\git\\AndroidSample\\sample.jks')
+        }
+    }
+
+    compileSdkVersion rootProject.ext.sdkVersion
+    buildToolsVersion '30.0.3'
 
     defaultConfig {
         applicationId "com.example.sample"
         minSdkVersion 23
-        targetSdkVersion 31
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
+        externalNativeBuild {
+            cmake {
+                cppFlags ''
+            }
+        }
     }
 
     buildTypes {
+        String build_time = "\"" + new Date().format("yyyyMMddHHmm") + "\""
         debug {
             buildConfigField "String", "HOST", '"http://www.jianshu.com"'
+            buildConfigField "String", "BUILD_TIME", "${build_time}"
+            buildConfigField "int", "MAX_THRESHOLD", '7'
+            resValue ("string", "build_time", "${build_time}")
+            ext.alwaysUpdateBuildId = false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
+            debuggable true
             buildConfigField "String", "HOST", '"http://www.baidu.com"'
-            minifyEnabled true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions 'mode', 'api'
+    productFlavors {
+        free {
+            dimension 'mode'
+            applicationIdSuffix '.free'
+            versionNameSuffix '-free'
+        }
+        paied {
+            dimension 'mode'
+            applicationIdSuffix '.paied'
+            versionNameSuffix '-paied'
+        }
+        minApi23 {
+            dimension 'api'
+            minSdk 23
+            versionNameSuffix '-minApi23'
+        }
+        minApi24 {
+            dimension 'api'
+            versionNameSuffix '-minApi24'
+            minSdk 24
+        }
+    }
+
+    variantFilter {
+        variant -> {
+            def flavor = variant.flavors*.name
+            def type = variant.buildType*.name
+            if (flavor.contains("minApi23") && flavor.contains("free") && type.contains("debug")) {
+                setIgnore(true)
+            }
         }
     }
 
@@ -50,11 +107,24 @@ android {
             java.srcDirs = ['src/main/java', 'src/main/aidl']
         }
     }
-    buildToolsVersion '31.0.0 rc2'
+
+    dataBinding {
+        enabled true
+    }
+
+//    // 依赖本地原生模块(c/cpp 代码模块)，右键模块选择 Add C++ to Module 并选择 Create CMakeLists.txt.... 后，会自动添加下面的 externalNativeBuild 配置
+//    externalNativeBuild {
+//        cmake {
+//            path file('src/main/cpp/CMakeLists.txt')
+//            version '3.18.1'
+//        }
+//    }
+//    // 依赖本地原生模块时，可以选择配置 ndk 路径，如果不配置会自动下载并默认使用与 gradle 插件匹配的 ndk
+//    ndkPath "D:\\env\\Android\\android-sdk-windows\\ndk\\21.1.6352462"
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
     implementation project(":lib")
     implementation 'androidx.appcompat:appcompat:1.2.0'
     // preference 可以使用 PreferenceFragmentCompat
@@ -72,15 +142,23 @@ dependencies {
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
     // MMKV
     implementation 'com.tencent:mmkv-static:1.2.10'
+    // kotlin
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.10'
+    // glide
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+    // okhttp
+    implementation "com.squareup.okhttp3:okhttp:4.9.3"
+
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.navigation:navigation-fragment:2.3.2'
     implementation 'androidx.navigation:navigation-ui:2.3.2'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-    implementation 'androidx.wear:wear:1.1.0'
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+//    androidTestImplementation 'androidx.test:rules:1.4.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    compileOnly 'com.google.android.wearable:wearable:2.8.1'
 
 }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 import android.view.animation.Animation;
@@ -28,8 +29,7 @@ public class ResourcesDrawableActivity extends AppCompatActivity {
         imageView.setImageResource(R.drawable.ic_launcher);
         ImageView clipView = findViewById(R.id.clip);
         ClipDrawable drawable = (ClipDrawable) clipView.getDrawable();
-        @SuppressLint("HandlerLeak")
-        Handler handler = new Handler() {
+        Handler handler = new Handler(Looper.myLooper()) {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);

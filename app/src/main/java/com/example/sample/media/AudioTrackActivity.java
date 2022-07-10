@@ -2,6 +2,7 @@ package com.example.sample.media;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.media.AudioAttributes;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -64,7 +65,12 @@ public class AudioTrackActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        mAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, RATE, CHANNEL, BITS_PER_SAMPLE, mBuf.length, AudioTrack.MODE_STREAM);
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_MEDIA)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build();
+        AudioFormat audioFormat = new AudioFormat.Builder().setSampleRate(BITS_PER_SAMPLE).build();
+        mAudioTrack = new AudioTrack(audioAttributes, audioFormat, mBuf.length, AudioTrack.MODE_STREAM, AudioManager.AUDIO_SESSION_ID_GENERATE);
+        // mAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, RATE, CHANNEL, BITS_PER_SAMPLE, mBuf.length, AudioTrack.MODE_STREAM);
         mAudioTrack.play();
         mPlayBtn.setEnabled(false);
         try {

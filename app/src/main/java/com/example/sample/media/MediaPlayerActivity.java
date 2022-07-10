@@ -1,6 +1,7 @@
 package com.example.sample.media;
 
 import android.content.res.AssetFileDescriptor;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -43,7 +44,9 @@ public class MediaPlayerActivity extends AppCompatActivity {
         try {
             AssetFileDescriptor assetFileDescriptor = getAssets().openFd("treasure.mp3");
             assetsPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
-            assetsPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+            AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION).build();
+            assetsPlayer.setAudioAttributes(audioAttributes);
+            // assetsPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
             assetsPlayer.prepare();
         } catch (IOException e) {
             ErrorPrintUtil.printErrorMsg(e);

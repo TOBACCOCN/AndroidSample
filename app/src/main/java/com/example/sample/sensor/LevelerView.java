@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Shader;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -61,9 +62,12 @@ public class LevelerView extends View {
     public LevelerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display defaultDisplay = windowManager.getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();
-        defaultDisplay.getMetrics(metrics);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            getDisplay().getRealMetrics(metrics);
+        } else {
+            // windowManager.getDefaultDisplay().getMetrics(metrics);
+        }
 
         width = metrics.widthPixels;
         back = Bitmap.createBitmap((int) width, (int) width, Bitmap.Config.ARGB_8888);

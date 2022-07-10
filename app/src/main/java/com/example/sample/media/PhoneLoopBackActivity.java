@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.media.AudioAttributes;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
@@ -183,12 +184,18 @@ public class PhoneLoopBackActivity extends Activity {
     }
 
     private void initAudioTrack() {
-        int streamType = AudioManager.STREAM_MUSIC;
+        // int streamType = AudioManager.STREAM_MUSIC;
         int mode = AudioTrack.MODE_STREAM;
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_MEDIA)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build();
+        AudioFormat audioFormat = new AudioFormat.Builder().setSampleRate(BITS_PER_SAMPLE).build();
         if (audioSessionId == -1) {
-            mAudioTrack = new AudioTrack(streamType, RATE, CHANNEL_OUT, BITS_PER_SAMPLE, mRecordBufferSize, mode);
+            mAudioTrack = new AudioTrack(audioAttributes, audioFormat, mRecordBufferSize, mode, AudioManager.AUDIO_SESSION_ID_GENERATE);
+            // mAudioTrack = new AudioTrack(streamType, RATE, CHANNEL_OUT, BITS_PER_SAMPLE, mRecordBufferSize, mode);
         } else {
-            mAudioTrack = new AudioTrack(streamType, RATE, CHANNEL_OUT, BITS_PER_SAMPLE, mRecordBufferSize, mode, audioSessionId);
+            mAudioTrack = new AudioTrack(audioAttributes, audioFormat, mRecordBufferSize, mode, audioSessionId);
+            // mAudioTrack = new AudioTrack(streamType, RATE, CHANNEL_OUT, BITS_PER_SAMPLE, mRecordBufferSize, mode, audioSessionId);
         }
         XLog.i("AUDIO_TRACK_INITIALED");
     }

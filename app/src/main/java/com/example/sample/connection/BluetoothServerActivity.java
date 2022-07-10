@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.widget.Toast;
 
@@ -47,7 +48,7 @@ public class BluetoothServerActivity extends AppCompatActivity {
 
     @SuppressLint("HandlerLeak")
     private void startBluetoothServerSocket(BluetoothAdapter bluetoothAdapter, Context context) {
-        Handler handler = new Handler() {
+        Handler handler = new Handler(Looper.myLooper()) {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 Toast.makeText(context, msg.obj.toString(), Toast.LENGTH_LONG).show();
