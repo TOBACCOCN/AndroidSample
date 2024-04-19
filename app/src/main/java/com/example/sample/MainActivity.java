@@ -92,7 +92,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showVersion() {
-        Toast.makeText(this, "api level: " + android.os.Build.VERSION.SDK_INT + ", release: " + Build.VERSION.RELEASE, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "api level: " + Build.VERSION.SDK_INT + ", release: " + Build.VERSION.RELEASE, Toast.LENGTH_SHORT).show();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            Toast.makeText(this, "targetSdk: " + getApplicationInfo().targetSdkVersion
+                            + ", minSdk: " +getApplicationInfo().minSdkVersion
+                            + ", compileSdk: " +getApplicationInfo().compileSdkVersion,
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showHeight() {

@@ -1,44 +1,35 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    ext.objectboxVersion = '2.6.0'
-    // 在 gradle_user_home 目录中的 init.gradle 配置了全局的仓库地址，这里可以不用再配置
-//    repositories {
-//        maven { url 'https://maven.aliyun.com/repository/central' }
-//        maven { url 'https://maven.aliyun.com/repository/jcenter' }
-//        maven { url 'https://maven.aliyun.com/repository/google' }
-//    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.1'
-        classpath "org.greenrobot:greendao-gradle-plugin:3.3.0"
-//        classpath "io.realm:realm-gradle-plugin:10.10.1"
-//        classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
 }
+
+//buildscript {
+//    ext.objectboxVersion = '2.6.0'
+//    dependencies {
+//        classpath 'com.android.tools.build:gradle:8.0.1'
+//        classpath "org.greenrobot:greendao-gradle-plugin:3.3.0"
+//        classpath "io.realm:realm-gradle-plugin:10.10.1"
+//        classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVbersion"
+//        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21'
+//
+//        // NOTE: Do not place your application dependencies here; they belong
+//        // in the individual module build.gradle files
+//    }
+//}
 
 ext {
-    sdkVersion = 30
+    compileSdk = 34
+    buildToolsVersion = 34
+    minSdk = 24
+    targetSdk = 34
+    hello = 'world'
 }
 
-
-allprojects {
-    // 在 gradle_user_home 目录中的 init.gradle 配置了全局的 仓库地址，这里可以不用再配置
-//    repositories {
-//        maven { url 'https://maven.aliyun.com/repository/central' }
-//        maven { url 'https://maven.aliyun.com/repository/jcenter' }
-//        maven { url 'https://maven.aliyun.com/repository/google' }
-//        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+//allprojects {
+//    gradle.projectsEvaluated {
+//        tasks.withType(JavaCompile) {
+//            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+//        }
 //    }
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-        }
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
+//}

@@ -1,4 +1,26 @@
+pluginManagement {
+    repositories {
+        google()
+        gradlePluginPortal()
+        maven{name "aliyun-gradle"; url "https://maven.aliyun.com/repository/gradle-plugin"}
+        maven{name "aliyun-public"; url "https://maven.aliyun.com/repository/gradle-public"}
+        mavenLocal()
+        mavenCentral()
+        configureEach { ArtifactRepository repo -> println "${repo.name}: ${repo.url.toString()}" }
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        maven {name "aliyun-public"; url "https://maven.aliyun.com/repository/public"}
+        mavenLocal()
+        mavenCentral()
+        configureEach { ArtifactRepository repo -> println "${repo.name}: ${repo.url.toString()}" }
+    }
+}
+
+rootProject.name = "AndroidSample"
+include ':app'
 include ':lib'
 include ':aidlserver'
-include ':app'
-rootProject.name = "AndroidSample"

@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import com.elvishew.xlog.XLog;
 import com.example.sample.R;
 
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -60,7 +61,7 @@ public class PlaneEventActivity extends AppCompatActivity{
 
         DisplayMetrics metrics = new DisplayMetrics();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            getDisplay().getRealMetrics(metrics);
+            Objects.requireNonNull(getDisplay()).getRealMetrics(metrics);
         }
         // getWindowManager().getDefaultDisplay().getMetrics(metrics);
         width = metrics.widthPixels;

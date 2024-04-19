@@ -1,20 +1,16 @@
 package com.example.sample.service;
 
+import android.app.Service;
 import android.content.Intent;
+import android.os.IBinder;
 
 import com.elvishew.xlog.XLog;
 import com.example.sample.util.ErrorPrintUtil;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.JobIntentService;
+import androidx.annotation.Nullable;
 
-/**
- * An {@link JobIntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * <p>
- * helper methods.
- */
-public class SimpleIntentService extends JobIntentService {
+public class SimpleIntentService extends /*JobIntentService*/ Service {
 
     public SimpleIntentService() {
         super();
@@ -52,7 +48,13 @@ public class SimpleIntentService extends JobIntentService {
         super.onDestroy();
     }
 
+    @Nullable
     @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    // @Override
     protected void onHandleWork(@NonNull Intent intent) {
         XLog.i("ON_HANDLE_INTENT");
 

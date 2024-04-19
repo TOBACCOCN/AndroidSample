@@ -30,6 +30,7 @@ public class DrawViewActivity extends AppCompatActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             Display display = getDisplay();
+            assert display != null;
             display.getRealMetrics(metrics);
         }
         linearLayout.addView(new DrawView(this, metrics.widthPixels, metrics.heightPixels));

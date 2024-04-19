@@ -27,6 +27,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 public class AudioRecordActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -59,6 +60,16 @@ public class AudioRecordActivity extends AppCompatActivity implements View.OnCli
         mStopBtn.setEnabled(false);
 
         int minBufferSize = AudioRecord.getMinBufferSize(RATE, CHANNEL, BITS_PER_SAMPLE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mAudioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, RATE, CHANNEL, BITS_PER_SAMPLE, minBufferSize);
         mBuf = new byte[minBufferSize];
 

@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
 public class PhoneLoopBackActivity extends Activity {
 
@@ -168,6 +169,16 @@ public class PhoneLoopBackActivity extends Activity {
         mRecordBufferSize = AudioRecord.getMinBufferSize(RATE, CHANNEL_IN, BITS_PER_SAMPLE);
         mBuffer = new byte[mRecordBufferSize];
         // 注意，使用 VOICE_COMMUNICATION 能自动使用回声消除
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mAudioRecord = new AudioRecord(MediaRecorder.AudioSource.VOICE_COMMUNICATION, RATE, CHANNEL_IN,
                 BITS_PER_SAMPLE, mRecordBufferSize);
         audioSessionId = mAudioRecord.getAudioSessionId();

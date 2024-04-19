@@ -3,6 +3,7 @@ package com.example.sample.resources;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.elvishew.xlog.XLog;
 import com.example.sample.R;
@@ -32,9 +33,10 @@ public class ResourcesValuesActivity extends AppCompatActivity {
             XLog.d("ARRAY_INTEGER: [%d]", i);
         }
         TypedArray typedArray = getResources().obtainTypedArray(R.array.array);
-        XLog.d("ARRAY_COLOR: [%d]", typedArray.getColor(0, 0xff0000));
-        XLog.d("ARRAY_COLOR: [%d]", typedArray.getColor(1, 0xff0000));
-        XLog.d("ARRAY_COLOR: [%d]", typedArray.getColor(2, 0xff0000));
+        for (int i = 0; i < typedArray.length(); ++i) {
+            // XLog.d("ARRAY_COLOR: [%d]", typedArray.getColor(i, 0xff0000));
+            Log.d("TAG", String.format("ARRAY_COLOR: [{%d}]", typedArray.getColor(i, 0xff0000)));
+        }
         for (int i = 0; i < typedArray.getIndexCount(); ++i) {
             XLog.d("ARRAY_COLOR: [%d]", typedArray.getColor(i, 0xff0000));
         }

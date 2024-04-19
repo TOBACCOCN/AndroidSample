@@ -1,6 +1,5 @@
 package com.example.sample.resources;
 
-import android.annotation.SuppressLint;
 import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
 import android.os.Handler;

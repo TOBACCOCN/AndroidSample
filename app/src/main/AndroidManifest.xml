@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.sample">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <permission
         android:name="android.permission.SIMPLE"
-        android:protectionLevel="normal" />
+        android:protectionLevel="normal"
+        tools:ignore="ReservedSystemPermission" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.autofocus" />
@@ -13,6 +13,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -42,6 +45,8 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts"/>
 
         <profileable android:shell="true" />
 
@@ -80,7 +85,13 @@
         <activity android:name=".drawable.ImageDecoderActivity" />
         <activity android:name=".resources.ResourcesXmlActivity" />
         <activity android:name=".resources.ResourcesDrawableActivity" />
-        <activity android:name=".resources.ResourcesValuesActivity" />
+        <activity android:name=".resources.ResourcesValuesActivity"
+            android:exported="true">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
         <activity android:name=".system_service.BatteryManagerActivity" />
         <activity android:name=".activity.DefaultPreferenceActivity" />
         <activity android:name=".system_service.TelephonyManagerActivity" />
@@ -98,11 +109,11 @@
             android:name=".activity.SimpleFragmentActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".activity.ForResultActivity" />
-        <activity android:name=".activity.SimplePreferenceActivity" >
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+        <activity android:name=".activity.SimplePreferenceActivity" android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activity.SimpleExpandableListActivity" />
         <activity android:name=".activity.SimpleLauncherActivity" />
@@ -171,10 +182,6 @@
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
             <intent-filter>
                 <data
                     android:host="www.example.com"

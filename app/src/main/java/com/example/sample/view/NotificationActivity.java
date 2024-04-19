@@ -50,14 +50,17 @@ public class NotificationActivity extends AppCompatActivity {
 
     public void notice(View view) {
         Intent intent = new Intent(this, ScrollViewActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
         String channelId = "123";
-        NotificationChannel channel = new NotificationChannel(channelId, "channel_name", NotificationManager.IMPORTANCE_DEFAULT);
-        channel.enableVibration(true);
-        channel.setVibrationPattern(new long[]{0, 50, 100, 150});
-        channel.enableLights(true);
-        channel.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION), null);
-        notificationManager.createNotificationChannel(channel);
+        NotificationChannel channel;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            channel = new NotificationChannel(channelId, "channel_name", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.enableVibration(true);
+            channel.setVibrationPattern(new long[]{0, 50, 100, 150});
+            channel.enableLights(true);
+            channel.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION), null);
+            notificationManager.createNotificationChannel(channel);
+        }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId);
         builder.setAutoCancel(true)
                 .setTicker("您有新消息")
